@@ -16,11 +16,14 @@ $res = $req->fetchAll(PDO::FETCH_OBJ);
 
 // data in json format
 $data = [
-    'isValid' => false
+    'exist' => true
 ];
 
 if (count($res) == 0) {
-    $data['isValid'] = true;
+    $data['exist'] = false;
+    $sql = "INSERT INTO email (Email) VALUES ('$newMail')";
+    $req = $pdo->query($sql);
+    $res = $req->fetchAll(PDO::FETCH_OBJ);
 }
 
 echo json_encode($data);
